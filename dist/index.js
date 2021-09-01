@@ -4615,7 +4615,7 @@ function checkDirty(context) {
         const query = `
 query openPullRequests($owner: String!, $repo: String!, $after: String, $baseRefName: String) { 
   repository(owner:$owner, name: $repo) { 
-    pullRequests(first: 100, after: $after, states: OPEN, baseRefName: $baseRefName) {
+    pullRequests(first: 100, after: $after, states: OPEN, number: $triggerPRNumber, baseRefName: $baseRefName) {
       nodes {
         mergeable
         number
@@ -4645,6 +4645,7 @@ query openPullRequests($owner: String!, $repo: String!, $after: String, $baseRef
             },
             after,
             baseRefName,
+            triggerPRNumber,
             owner: github.context.repo.owner,
             repo: github.context.repo.repo,
         });
